@@ -5,6 +5,7 @@ import Image from "next/image";
 import { products } from "@/data/products";
 import { Product } from "@/types/Product";
 import styles from "./grid.module.css";
+import { FaCartPlus } from "react-icons/fa";
 export default function ProductGrid() {
 
   const [items, setItems] = useState<Product[]>(products);
@@ -30,11 +31,13 @@ export default function ProductGrid() {
     ));
   };
 
-  const agregarAlCarrito = (producto: Product) => {
-    console.log("Producto agregado:", producto);
+const agregarAlCarrito = (producto: Product) => {
 
-    // Aquí Marvin conectará Redux o el carrito.
-  };
+    // Aquí irá Redux o el Context cuando Marvin lo haga.
+    console.log(producto);
+
+    alert(`${producto.nombre} agregado al carrito.`);
+};
 
   return (
     <div className={styles.grid}>
@@ -70,6 +73,7 @@ export default function ProductGrid() {
               </button>
 
               <span>{producto.cantidad}</span>
+              
 
               <button
                 onClick={() => aumentarCantidad(producto.id)}
@@ -79,12 +83,14 @@ export default function ProductGrid() {
 
             </div>
 
-            <button
-              className={styles.addButton}
-              onClick={() => agregarAlCarrito(producto)}
-            >
-              Agregar al carrito
-            </button>
+<button
+    className={styles.addButton}
+    onClick={() => agregarAlCarrito(producto)}
+>
+    <FaCartPlus />
+    &nbsp;
+    Agregar al carrito
+</button>
 
           </div>
 
