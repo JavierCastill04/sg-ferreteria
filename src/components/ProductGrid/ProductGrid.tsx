@@ -1,19 +1,43 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { products } from "@/data/products";
 import { Product } from "@/types/Product";
 import styles from "./grid.module.css";
 import { FaCartPlus } from "react-icons/fa";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { agregar, limpiar } from "@/redux/carritoSlice";
 
 import Swal from "sweetalert2";
 
 export default function ProductGrid() {
   const dispatch = useAppDispatch();
-
+  const carrito = useAppSelector((state) => state.carrito);
   const [items, setItems] = useState<Product[]>(products);
+
+  useEffect(() => {
+    if (carrito.length === 0) {
+      setItems(items.map(producto => ({
+        ...producto,
+        cantidad: 1
+      })))
+    }
+  }, [carrito.length]);
+
+  useEffect(() => {
+    setItems(prevItems =>
+      prevItems.map(producto => {
+        const productoEnCarrito = carrito.find(item => item.id === producto.id);
+        if (!productoEnCarrito) {
+          return {
+            ...producto,
+            cantidad: 1
+          };
+        }
+        return producto;
+      })
+    );
+  }, [carrito]);
 
   const aumentarCantidad = (id: number) => {
     setItems(items.map(product =>
@@ -48,6 +72,12 @@ export default function ProductGrid() {
     });
   };
 
+  const reiniciarCantidades = () => {
+    setItems(items.map(producto => ({
+      ...producto,
+      cantidad: 1
+    })));
+  };
 
   return (
     <>
@@ -104,6 +134,7 @@ export default function ProductGrid() {
             }).then((result) => {
               if (result.isConfirmed) {
                 dispatch(limpiar());
+                reiniciarCantidades();
 
                 Swal.fire({
                   icon: "success",

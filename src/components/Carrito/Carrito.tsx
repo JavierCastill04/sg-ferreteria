@@ -66,7 +66,7 @@ export default function Cart() {
               <p className={styles["cart-item-detail"]}>Cantidad: {item.cantidad}</p>
               <p className={styles["cart-item-detail"]}>Precio unitario: ${item.precio}</p>
               <strong className={styles["cart-item-subtotal"]}>
-                Subtotal: ${item.precio * item.cantidad}
+                Subtotal: ${(item.precio * item.cantidad).toFixed(2)}
               </strong>
             </div>
             <button
@@ -80,7 +80,7 @@ export default function Cart() {
       </div>
 
       <div className={styles["cart-total"]}>
-        <strong>Total: ${total}</strong>
+        <strong>Total: ${total.toFixed(2)}</strong>
       </div>
 
       <div className={styles["cart-actions"]}>

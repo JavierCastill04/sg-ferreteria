@@ -13,7 +13,7 @@ const carritoSlice = createSlice({
       );
 
       if (existingProduct) {
-        existingProduct.cantidad++;
+        existingProduct.cantidad = action.payload.cantidad;
       } else {
         state.push({ ...action.payload });
       }
