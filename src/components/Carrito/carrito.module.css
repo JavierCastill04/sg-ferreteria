@@ -1,0 +1,133 @@
+.cart-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 320px;
+  max-height: 420px;
+  background: #ffffff;
+  border: 1px solid #be7abf;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 100;
+}
+
+.cart-empty {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #5e246e;
+  padding: 24px 12px;
+}
+
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #be7abf;
+  padding-bottom: 10px;
+}
+
+.cart-item-image {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+  border: 1px solid #be7abf;
+}
+
+.cart-item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cart-item-name {
+  font-weight: 600;
+  font-size: 14px;
+  margin: 0;
+  color: #371840;
+}
+
+.cart-item-detail {
+  font-size: 12px;
+  color: #000000;
+  margin: 0;
+}
+
+.cart-item-subtotal {
+  font-size: 13px;
+  color: #5e246e;
+  margin-top: 2px;
+}
+
+.cart-remove-btn {
+  background: none;
+  border: none;
+  color: #5e246e;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px;
+  flex-shrink: 0;
+}
+
+.cart-remove-btn:hover {
+  color: #371840;
+}
+
+.cart-total {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 15px;
+  padding-top: 6px;
+  border-top: 1px solid #be7abf;
+  color: #371840;
+}
+
+.cart-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.cart-clear-btn,
+.cart-buy-btn {
+  flex: 1;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.cart-clear-btn {
+  background: #ffffff;
+  color: #5e246e;
+  border: 1px solid #be7abf;
+}
+
+.cart-clear-btn:hover {
+  background: #be7abf;
+  color: #ffffff;
+}
+
+.cart-buy-btn {
+  background: #5e246e;
+  color: #ffffff;
+}
+
+.cart-buy-btn:hover {
+  background: #371840;
+}

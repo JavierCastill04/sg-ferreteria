@@ -1,6 +1,7 @@
 import ProductGrid from "@/components/ProductGrid/ProductGrid";
 
-export default function Home() {
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <main style={{ padding: "2rem" }}>
       <h1

@@ -43,7 +43,7 @@ body {
   --color-purple-dark: #371840;
 
 
-  /* Interfaz */
+
   --bg-primary: var(--color-black);
   --bg-secondary: var(--color-purple-dark);
   --text-primary: var(--color-white);
@@ -51,7 +51,7 @@ body {
   --primary-light: var(--color-purple-light);
   --primary-dark: var(--color-purple-dark);
 
-  /*Otros parámetros*/
+
   --radius: 15px;
   --shadow: 0 4px 12px rgba(0, 0, 0, .08);
   --transition: .3s ease;
@@ -74,6 +74,7 @@ body {
 img {
   display: block;
   max-width: 100%;
+
 }
 
 a {
