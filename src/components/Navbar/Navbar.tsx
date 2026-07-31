@@ -15,26 +15,26 @@ export default function Navbar() {
 
   return (
     <nav className={styles.navbar}>
-      <div className={styles.title}>
+      <div className={styles.titulo}>
         <SlWrench size={15}></SlWrench>
         <h1>Ferreteria Pablito</h1>
       </div>
 
-      <div className={styles.controls}>
-        <label className={styles.switchWrapper}>
-          <span className={styles.switchLabel}>Optimistic Updates</span>
+      <div className={styles.controlador}>
+        <label className={styles.etiqueta}>
+          <span className={styles.spanst}>Optimistic Updates            </span>
           <span className={styles.switch}>
             <input
               type="checkbox"
               checked={optimisticUpdates}
               onChange={() => setOptimisticUpdates((prev) => !prev)}
             />
-            <span className={styles.slider} />
+            <span className={styles.span} />
           </span>
         </label>
 
-        <div className={styles.cartContainer}>
-          <button className={styles.cartButton} onClick={() => setShowCart(!showCart)}>
+        <div className={styles.Contenedor}>
+          <button className={styles.BttnC} onClick={() => setShowCart(!showCart)}>
            <SlBasket size={18}></SlBasket>
             Carrito ({totalItems})
           </button>
