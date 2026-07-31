@@ -1,0 +1,68 @@
+import { Product } from "@/types/Product";
+
+export const products: Product[] = [
+  {
+    id: 1,
+    nombre: "Martillo",
+    descripcion: "Martillo de acero con mango ergonómico.",
+    precio: 12.99,
+    imagen: "/images/martillo.jpg",
+    cantidad: 1,
+  },
+  {
+    id: 2,
+    nombre: "Taladro",
+    descripcion: "Taladro eléctrico de 650W.",
+    precio: 79.99,
+    imagen: "/images/taladro.jpg",
+    cantidad: 1,
+  },
+  {
+    id: 3,
+    nombre: "Destornillador",
+    descripcion: "Destornillador de punta plana.",
+    precio: 5.50,
+    imagen: "/images/destornillador.jpg",
+    cantidad: 1,
+  },
+  {
+    id: 4,
+    nombre: "Llave inglesa",
+    descripcion: "Llave ajustable de acero.",
+    precio: 15.25,
+    imagen: "/images/llave.jpg",
+    cantidad: 1,
+  },
+  {
+    id: 5,
+    nombre: "Brocha",
+    descripcion: "Brocha profesional de 3 pulgadas.",
+    precio: 6.75,
+    imagen: "/images/brocha.jpg",
+    cantidad: 1,
+  },
+  {
+    id: 6,
+    nombre: "Pintura blanca",
+    descripcion: "Galón de pintura acrílica.",
+    precio: 24.50,
+    imagen: "/images/pintura.jpg",
+    cantidad: 1,
+  },
+  {
+    id: 7,
+    nombre: "Cinta métrica",
+    descripcion: "Cinta métrica retráctil de 5 metros.",
+    precio: 8.99,
+    imagen: "/images/cinta.jpg",
+    cantidad: 1,
+  },
+  {
+    id: 8,
+    nombre: "Caja de tornillos",
+    descripcion: "Caja con 100 tornillos galvanizados.",
+    precio: 10.00,
+    imagen: "/images/tornillos.jpg",
+    cantidad: 1,
+  },
+];

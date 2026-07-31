@@ -35,6 +35,45 @@ body {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  /*Colores*/
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  --color-purple-light: #BE7ABF;
+  --color-purple: #5E246E;
+  --color-purple-dark: #371840;
+
+
+  /* Interfaz */
+  --bg-primary: var(--color-black);
+  --bg-secondary: var(--color-purple-dark);
+  --text-primary: var(--color-white);
+  --primary: var(--color-purple);
+  --primary-light: var(--color-purple-light);
+  --primary-dark: var(--color-purple-dark);
+
+  /*Otros parámetros*/
+  --radius: 15px;
+  --shadow: 0 4px 12px rgba(0, 0, 0, .08);
+  --transition: .3s ease;
+  --max-width: 1400px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: Courier, serif;
+}
+
+img {
+  display: block;
+  max-width: 100%;
 }
 
 a {
@@ -46,4 +85,62 @@ a {
   html {
     color-scheme: dark;
   }
+}
+label,
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+button:active {
+  transform: scale(.98);
+}
+
+input,
+textarea,
+select {
+  border: 1px solid var(--bg-secondary);
+  border-radius: var(--radius);
+  padding: .75rem 1rem;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid var(--bg-secondary);
+  outline-offset: 2px;
+}
+
+main,
+.container {
+  width: min(100%, var(--max-width));
+  margin: auto;
+  padding: 2rem;
+}
+
+section {
+  margin-bottom: 2rem;
+}
+
+h1,
+h2,
+h3 {
+  margin-bottom: .8rem;
+}
+
+p {
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+::selection {
+  background: var(--bg-primary);
+  color: var(--bg-secondary);
 }
