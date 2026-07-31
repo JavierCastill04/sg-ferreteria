@@ -2,7 +2,7 @@
 import { removeFromCart, clearCart } from "../../redux/carritoSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { Venta, VentaItem } from "../../types/Venta";
-import "./carrito.css"
+import "./carrito.module.css"
 
 export default function Cart() {
   const carrito = useAppSelector((state) => state.carrito);
