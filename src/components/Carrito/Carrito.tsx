@@ -4,10 +4,12 @@ import { eliminar, limpiar } from "../../redux/carritoSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { Venta, VentaItem } from "../../types/Venta";
 import Swal from "sweetalert2";
+import usePost from "@/customHooks/usePost";
 
 export default function Cart() {
   const carrito = useAppSelector((state) => state.carrito);
   const dispatch = useAppDispatch();
+  const { sendData, loading } = usePost("https://6a6ad838eb87a96865a8a64a.mockapi.io/ferreteria/v1/ventas");
 
   const total = carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
 
@@ -23,10 +25,28 @@ export default function Cart() {
     return { productos, total, fecha: new Date().toISOString() };
   };
 
-  const handleComprar = () => {
+  const handleComprar = async () => {
     const venta = buildVenta();
-    console.log("Venta preparada:", venta);
-    dispatch(limpiar());
+    try {
+      await sendData(venta);
+
+      Swal.fire({
+        icon: "success",
+        title: "¡Compra realizada!",
+        text: "Tu compra se ha registrado correctamente.",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+
+      dispatch(limpiar());
+    }
+    catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudo realizar la compra.",
+      });
+    }
   };
 
   const limpiarCarrito = () => {
@@ -87,8 +107,8 @@ export default function Cart() {
         <button className={styles["cart-clear-btn"]} onClick={limpiarCarrito}>
           Vaciar carrito
         </button>
-        <button className={styles["cart-buy-btn"]} onClick={handleComprar}>
-          Realizar compra
+        <button className={styles["cart-buy-btn"]} onClick={handleComprar} disabled={loading}>
+          {loading ? "Procesando compra" : "Realizar compra"}
         </button>
       </div>
     </div>
