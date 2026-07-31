@@ -1,8 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface ConfigState { optimistic: boolean }
+interface ConfigState { optimistic: boolean, prosecsCompra: boolean}
 
-const initialState: ConfigState = { optimistic: false };
+const initialState: ConfigState = { optimistic: false, prosecsCompra:false };
 
 const configSlice = createSlice({
     name: "config",
@@ -11,8 +11,11 @@ const configSlice = createSlice({
         cambiarOptimistic: (state) => {
             state.optimistic = !state.optimistic;
         },
+        ProsesandoComrpra:(state,action: PayloadAction<boolean>)=>{
+            state.prosecsCompra = action.payload;
+        }
     },
 });
 
-export const { cambiarOptimistic } = configSlice.actions;
+export const { cambiarOptimistic, ProsesandoComrpra } = configSlice.actions;
 export default configSlice.reducer;

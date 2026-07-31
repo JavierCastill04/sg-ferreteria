@@ -8,11 +8,12 @@ import "@/utils/MensajesSwal";
 import { Product } from "@/types/Product";
 import usePost from "@/customHooks/usePost";
 import { CompraExitosa, ConfirmarCarritoVacio, ErrorCompra, VaciarCarrito } from "@/utils/MensajesSwal";
+import {ProsesandoComrpra} from "../../redux/configSlice"
 
 export default function Cart() {
   const carrito = useAppSelector((state) => state.carrito);
   const dispatch = useAppDispatch();
-
+  const Procesando = useAppSelector((state)=>state.config.prosecsCompra);
   const optimistic = useAppSelector((state) => state.config.optimistic);
   const [optimisticCarrito, setOptimisticCarrito] = useOptimistic<Product[], Product[]>(
     carrito,
@@ -36,9 +37,9 @@ export default function Cart() {
 
   const handleComprar = () => {
     const venta = buildVenta();
-
     if (optimistic) {
       const carritoAnterior = [...carrito];
+      dispatch(ProsesandoComrpra(true));
 
       startTransition(async () => {
         setOptimisticCarrito([]);
@@ -51,11 +52,14 @@ export default function Cart() {
         } catch (error) {
           setOptimisticCarrito(carritoAnterior);
           ErrorCompra();
+        } finally {
+          dispatch(ProsesandoComrpra(false));
         }
       });
 
     } else {
       const realizarCompra = async () => {
+        dispatch(ProsesandoComrpra(true));
         try {
           await sendData(venta);
           dispatch(limpiar());
@@ -63,6 +67,8 @@ export default function Cart() {
 
         } catch (error) {
           ErrorCompra();
+        } finally {
+          dispatch(ProsesandoComrpra(false));
         }
       };
       realizarCompra();
@@ -114,9 +120,9 @@ export default function Cart() {
         <button className={styles["cart-clear-btn"]} onClick={limpiarCarrito}>
           Vaciar carrito
         </button>
-        <button className={styles["cart-buy-btn"]} onClick={handleComprar} disabled={loading}>
-          {loading ? "Procesando compra" : "Realizar compra"}
-        </button>
+      <button className={styles["cart-buy-btn"]} onClick={handleComprar} disabled={loading || Procesando}>
+        {loading || Procesando ? "Procesando compra" : "Realizar compra"}
+       </button>
       </div>
     </div>
   );
