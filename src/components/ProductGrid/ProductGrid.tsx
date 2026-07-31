@@ -6,7 +6,13 @@ import { products } from "@/data/products";
 import { Product } from "@/types/Product";
 import styles from "./grid.module.css";
 import { FaCartPlus } from "react-icons/fa";
+import { useAppDispatch } from "@/redux/hooks";
+import { agregar, limpiar } from "@/redux/carritoSlice";
+
+import Swal from "sweetalert2";
+
 export default function ProductGrid() {
+    const dispatch = useAppDispatch();
 
   const [items, setItems] = useState<Product[]>(products);
 
@@ -32,14 +38,20 @@ export default function ProductGrid() {
   };
 
 const agregarAlCarrito = (producto: Product) => {
+  dispatch(agregar(producto));
 
-    // Aquí irá Redux o el Context cuando Marvin lo haga.
-    console.log(producto);
-
-    alert(`${producto.nombre} agregado al carrito.`);
+  Swal.fire({
+    icon: "success",
+    title: "Producto agregado",
+    text: `${producto.nombre} agregado al carrito`,
+    timer: 1500,
+    showConfirmButton: false,
+  });
 };
+  
 
   return (
+    <>
     <div className={styles.grid}>
 
       {items.map((producto) => (
@@ -82,15 +94,17 @@ const agregarAlCarrito = (producto: Product) => {
               </button>
 
             </div>
+            
 
-<button
-    className={styles.addButton}
-    onClick={() => agregarAlCarrito(producto)}
->
-    <FaCartPlus />
-    &nbsp;
-    Agregar al carrito
-</button>
+              <button
+            className={styles.addButton}
+               onClick={() => agregarAlCarrito(producto)}
+                   >   
+                    <FaCartPlus />
+                   &nbsp;
+            Agregar al carrito
+            </button>
+
 
           </div>
 
@@ -99,5 +113,34 @@ const agregarAlCarrito = (producto: Product) => {
       ))}
 
     </div>
+     <div style={{ textAlign: "center", marginTop: "2rem" }}>
+      <button
+        className={styles.addButton}
+        onClick={() => {
+          Swal.fire({
+            title: "¿Vaciar carrito?",
+            text: "Se eliminarán todos los productos del carrito.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Sí, vaciar",
+            cancelButtonText: "Cancelar",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              dispatch(limpiar());
+
+              Swal.fire({
+                icon: "success",
+                title: "Carrito vacío",
+                timer: 1200,
+                showConfirmButton: false,
+              });
+            }
+          });
+        }}
+      >
+        Vaciar carrito
+      </button>
+    </div>
+  </>
   );
 }
