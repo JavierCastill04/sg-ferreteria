@@ -6,9 +6,10 @@ import { Product } from "@/types/Product";
 import styles from "./grid.module.css";
 import { FaCartPlus } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { agregar, limpiar } from "@/redux/carritoSlice";
+import { agregar } from "@/redux/carritoSlice";
 
 import Swal from "sweetalert2";
+import { AgregarAlCarrito } from "@/utils/MensajesSwal";
 
 export default function ProductGrid() {
   const dispatch = useAppDispatch();
@@ -62,14 +63,7 @@ export default function ProductGrid() {
 
   const agregarAlCarrito = (producto: Product) => {
     dispatch(agregar(producto));
-
-    Swal.fire({
-      icon: "success",
-      title: "Producto agregado",
-      text: `${producto.nombre} agregado al carrito`,
-      timer: 1500,
-      showConfirmButton: false,
-    });
+    AgregarAlCarrito(producto);
   };
 
   const reiniciarCantidades = () => {

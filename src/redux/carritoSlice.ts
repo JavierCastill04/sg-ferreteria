@@ -24,9 +24,13 @@ const carritoSlice = createSlice({
     },
 
     limpiar: () => [],
+
+    restaurar: (state, action: PayloadAction<Product[]>) => {
+      return action.payload;
+    }
   },
 });
 
-export const { agregar, eliminar, limpiar } = carritoSlice.actions;
+export const { agregar, eliminar, limpiar, restaurar } = carritoSlice.actions;
 
 export default carritoSlice.reducer;
