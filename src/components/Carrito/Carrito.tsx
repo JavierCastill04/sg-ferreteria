@@ -1,18 +1,26 @@
 "use client";
 import styles from "./carrito.module.css";
-import { eliminar, limpiar } from "../../redux/carritoSlice";
+import { useOptimistic, startTransition } from "react";
+import { eliminar, limpiar, restaurar } from "../../redux/carritoSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { Venta, VentaItem } from "../../types/Venta";
 import "@/utils/MensajesSwal";
+import { Product } from "@/types/Product";
 import usePost from "@/customHooks/usePost";
 import { CompraExitosa, ConfirmarCarritoVacio, ErrorCompra, VaciarCarrito } from "@/utils/MensajesSwal";
 
 export default function Cart() {
   const carrito = useAppSelector((state) => state.carrito);
   const dispatch = useAppDispatch();
-  const { sendData, loading } = usePost("https://6a6ad838eb87a96865a8a64a.mockapi.io/ferreteria/v1/ventas");
 
-  const total = carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
+  const optimistic = useAppSelector((state) => state.config.optimistic);
+  const [optimisticCarrito, setOptimisticCarrito] = useOptimistic<Product[], Product[]>(
+    carrito,
+    (_state, nuevoCarrito) => nuevoCarrito
+  );
+
+  const { sendData, loading } = usePost("https://6a6ad838eb87a96865a8a64a.mockapi.io/ferreteria/v1/ventas");
+  const total = optimisticCarrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
 
   const buildVenta = (): Venta => {
     const productos: VentaItem[] = carrito.map((item) => ({
@@ -26,15 +34,38 @@ export default function Cart() {
     return { productos, total, fecha: new Date().toISOString() };
   };
 
-  const handleComprar = async () => {
+  const handleComprar = () => {
     const venta = buildVenta();
-    try {
-      await sendData(venta);
-      CompraExitosa();
-      dispatch(limpiar());
-    }
-    catch (error) {
-      ErrorCompra();
+
+    if (optimistic) {
+      const carritoAnterior = [...carrito];
+
+      startTransition(async () => {
+        setOptimisticCarrito([]);
+        CompraExitosa();
+
+        try {
+          await sendData(venta);
+          dispatch(limpiar());
+
+        } catch (error) {
+          setOptimisticCarrito(carritoAnterior);
+          ErrorCompra();
+        }
+      });
+
+    } else {
+      const realizarCompra = async () => {
+        try {
+          await sendData(venta);
+          dispatch(limpiar());
+          CompraExitosa();
+
+        } catch (error) {
+          ErrorCompra();
+        }
+      };
+      realizarCompra();
     }
   };
 
@@ -47,14 +78,14 @@ export default function Cart() {
     });
   };
 
-  if (carrito.length === 0) {
+  if (optimisticCarrito.length === 0) {
     return <div className={`${styles["cart-dropdown"]} ${styles["cart-empty"]}`}>El carrito está vacío</div>;
   }
 
   return (
     <div className={styles["cart-dropdown"]}>
       <div className={styles["cart-items"]}>
-        {carrito.map((item) => (
+        {optimisticCarrito.map((item) => (
           <div key={item.id} className={styles["cart-item"]}>
             <img src={item.imagen} alt={item.nombre} className={styles["cart-item-image"]} />
             <div className={styles["cart-item-info"]}>

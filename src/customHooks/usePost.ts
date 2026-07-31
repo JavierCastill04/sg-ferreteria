@@ -6,11 +6,14 @@ const usePost = (url: string) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(<Error | null>(null));
 
+    const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
     const sendData = async (datos: Venta) => {
         setLoading(true);
         setError(null);
 
         try {
+            await delay(3000);
             const res = await fetch(url, {
                 method: "POST",
                 headers: {

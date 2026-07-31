@@ -1,15 +1,16 @@
 "use client";
 import { useState } from "react";
-import Link from "next/link";
 import Cart from "../Carrito/Carrito";
-import { useAppSelector } from "../../redux/hooks";
-import styles from "./navbar.module.css";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import { cambiarOptimistic } from "@/redux/configSlice";
+import styles from "@/components/Navbar/navbar.module.css";
 import { SlBasket } from "react-icons/sl";
 import { SlWrench } from "react-icons/sl";
 
 export default function Navbar() {
   const [showCart, setShowCart] = useState(false);
-  const [optimisticUpdates, setOptimisticUpdates] = useState(false); // TODO: mover a redux si se necesita global
+  const dispatch = useAppDispatch();
+  const optimistic = useAppSelector((state) => state.config.optimistic);
   const carrito = useAppSelector((state) => state.carrito);
   const totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
 
@@ -26,8 +27,8 @@ export default function Navbar() {
           <span className={styles.switch}>
             <input
               type="checkbox"
-              checked={optimisticUpdates}
-              onChange={() => setOptimisticUpdates((prev) => !prev)}
+              checked={optimistic}
+              onChange={() => dispatch(cambiarOptimistic())}
             />
             <span className={styles.span} />
           </span>
