@@ -5,7 +5,6 @@ import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { cambiarOptimistic } from "@/redux/configSlice";
 import styles from "@/components/Navbar/navbar.module.css";
 import { SlBasket } from "react-icons/sl";
-import { SlWrench } from "react-icons/sl";
 
 export default function Navbar() {
   const [showCart, setShowCart] = useState(false);
@@ -17,10 +16,13 @@ export default function Navbar() {
   return (
     <nav className={styles.navbar}>
       <div className={styles.titulo}>
-        <SlWrench size={15}></SlWrench>
+        <img
+          className={styles.icono}
+          src="/images/Icono.jpg"
+          alt="Logo"
+        />
         <h1>Ferreteria Pablito</h1>
       </div>
-
       <div className={styles.controlador}>
         <label className={styles.etiqueta}>
           <span className={styles.spanst}>Optimistic Updates </span>
@@ -36,7 +38,7 @@ export default function Navbar() {
 
         <div className={styles.Contenedor}>
           <button className={styles.BttnC} onClick={() => setShowCart(!showCart)}>
-           <SlBasket size={18}></SlBasket>
+            <SlBasket size={18}></SlBasket>
             Carrito ({totalItems})
           </button>
           {showCart && <Cart />}
