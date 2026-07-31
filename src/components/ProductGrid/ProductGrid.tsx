@@ -120,35 +120,6 @@ export default function ProductGrid() {
         ))}
 
       </div>
-      <div style={{ textAlign: "center", marginTop: "2rem" }}>
-        <button
-          className={styles.addButton}
-          onClick={() => {
-            Swal.fire({
-              title: "¿Vaciar carrito?",
-              text: "Se eliminarán todos los productos del carrito.",
-              icon: "warning",
-              showCancelButton: true,
-              confirmButtonText: "Sí, vaciar",
-              cancelButtonText: "Cancelar",
-            }).then((result) => {
-              if (result.isConfirmed) {
-                dispatch(limpiar());
-                reiniciarCantidades();
-
-                Swal.fire({
-                  icon: "success",
-                  title: "Carrito vacío",
-                  timer: 1200,
-                  showConfirmButton: false,
-                });
-              }
-            });
-          }}
-        >
-          Vaciar carrito
-        </button>
-      </div>
     </>
   );
 }

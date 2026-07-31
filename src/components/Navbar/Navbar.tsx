@@ -22,7 +22,7 @@ export default function Navbar() {
 
       <div className={styles.controlador}>
         <label className={styles.etiqueta}>
-          <span className={styles.spanst}>Optimistic Updates            </span>
+          <span className={styles.spanst}>Optimistic Updates </span>
           <span className={styles.switch}>
             <input
               type="checkbox"

@@ -6,7 +6,7 @@
 }
 
 .card{
-    background:white;
+    background:var(--background);
     border-radius:16px;
     overflow:hidden;
     box-shadow:0 10px 25px rgba(0,0,0,.12);
@@ -25,7 +25,7 @@
 
 .price{
     font-size:1.6rem;
-    color:#5E246E;
+    color:var(--primary);
     font-weight:bold;
 }
 
@@ -41,8 +41,8 @@
     height:34px;
     border:none;
     border-radius:50%;
-    background:#BE7ABF;
-    color:white;
+    background:var(--primary-light);
+    color:var(--background);
     cursor:pointer;
 }
 
@@ -52,14 +52,14 @@
     padding:12px;
     border:none;
     border-radius:10px;
-    background:#5E246E;
-    color:white;
+    background:var(--primary);
+    color:var(--background);
     font-weight:bold;
     cursor:pointer;
 }
 
 .addButton:hover{
-    background:#371840;
+    background:var(--primary-dark);
 }
 
 .content{
@@ -82,7 +82,7 @@
 .content h2{
     margin:0 0 10px;
     font-size:1.3rem;
-    color:#371840;
+    color:var(--primary-dark);
 }
 
 .content p{
@@ -113,5 +113,5 @@
     text-align:center;
     font-size:1.2rem;
     font-weight:bold;
-    color:#371840;
+    color: var(--primary-dark);
 }

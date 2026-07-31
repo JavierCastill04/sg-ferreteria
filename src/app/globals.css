@@ -1,13 +1,25 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /*Colores*/
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  --color-purple-light: #BE7ABF;
+  --color-purple: #5E246E;
+  --color-purple-dark: #371840;
+
+  --bg-primary: var(--color-black);
+  --bg-secondary: var(--color-purple-dark);
+  --text-primary: var(--color-white);
+  --primary: var(--color-purple);
+  --primary-light: var(--color-purple-light);
+  --primary-dark: var(--color-purple-dark);
+
+  --radius: 15px;
+  --shadow: 0 8px 24px rgba(0, 0, 0, .08);
+  --transition: .3s ease;
+  --max-width: 1400px;
 }
 
 html {
@@ -29,33 +41,6 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-  /*Colores*/
-  --color-white: #FFFFFF;
-  --color-black: #000000;
-  --color-purple-light: #BE7ABF;
-  --color-purple: #5E246E;
-  --color-purple-dark: #371840;
-
-
-
-  --bg-primary: var(--color-black);
-  --bg-secondary: var(--color-purple-dark);
-  --text-primary: var(--color-white);
-  --primary: var(--color-purple);
-  --primary-light: var(--color-purple-light);
-  --primary-dark: var(--color-purple-dark);
-
-
-  --radius: 15px;
-  --shadow: 0 4px 12px rgba(0, 0, 0, .08);
-  --transition: .3s ease;
-  --max-width: 1400px;
 }
 
 * {
@@ -82,11 +67,6 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-}
 label,
 button,
 input,
