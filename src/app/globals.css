@@ -1,5 +1,41 @@
 :root {
-  /*Colores*/
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+html {
+  height: 100%;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+
   --color-white: #FFFFFF;
   --color-black: #000000;
   --color-purple-light: #BE7ABF;
@@ -7,7 +43,7 @@
   --color-purple-dark: #371840;
 
 
-  /* Interfaz */
+
   --bg-primary: var(--color-black);
   --bg-secondary: var(--color-purple-dark);
   --text-primary: var(--color-white);
@@ -15,7 +51,7 @@
   --primary-light: var(--color-purple-light);
   --primary-dark: var(--color-purple-dark);
 
-  /*Otros parámetros*/
+
   --radius: 15px;
   --shadow: 0 4px 12px rgba(0, 0, 0, .08);
   --transition: .3s ease;
@@ -38,11 +74,19 @@ body {
 img {
   display: block;
   max-width: 100%;
+
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
 }
 
 label,

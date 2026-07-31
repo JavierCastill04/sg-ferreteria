@@ -1,11 +1,19 @@
+"use client"
+import { Provider } from "react-redux";
+import { store } from "../redux/store";
+import Navbar from "@/components/Navbar/Navbar";
 
-export default function Home() {
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <main className="home-container">
-      <br />
-      <section>
-        Hola mundo
-      </section>
-    </main>
-  );
+    <html lang="es">
+      <body>
+        <Provider store={store}>
+          <Navbar />
+          {children}
+        </Provider>
+      </body>
+    </html>
+  )
+
 }
