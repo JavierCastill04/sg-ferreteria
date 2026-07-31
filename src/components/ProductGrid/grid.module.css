@@ -4,103 +4,64 @@
     gap:28px;
     padding:30px;
 }
+
 .card{
-
     background:white;
-
     border-radius:16px;
-
     overflow:hidden;
-
     box-shadow:0 10px 25px rgba(0,0,0,.12);
-
     transition:.25s;
-
 }
 
 .card:hover{
-
     transform:translateY(-8px);
-
 }
 
 .image{
-
     width:100%;
-
     height:220px;
-
     object-fit:contain;
-
 }
 
 .price{
-
     font-size:1.6rem;
-
     color:#5E246E;
-
     font-weight:bold;
-
 }
 
 .quantity{
-
     display:flex;
-
     justify-content:center;
-
     align-items:center;
-
     gap:12px;
-
 }
 
 .quantity button{
-
     width:34px;
-
     height:34px;
-
     border:none;
-
     border-radius:50%;
-
     background:#BE7ABF;
-
     color:white;
-
     cursor:pointer;
-
 }
 
 .addButton{
-
     width:100%;
-
     margin-top:15px;
-
     padding:12px;
-
     border:none;
-
     border-radius:10px;
-
     background:#5E246E;
-
     color:white;
-
     font-weight:bold;
-
     cursor:pointer;
-
 }
 
 .addButton:hover{
-
     background:#371840;
-
 }
+
 .content{
     padding:20px;
 }
