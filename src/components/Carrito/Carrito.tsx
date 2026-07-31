@@ -1,46 +1,9 @@
-import { useAppDispatch } from "@/redux/hooks";
-import { limpiar } from "@/redux/carritoSlice";
-import Swal from "sweetalert2";
-
-export default function Carrito() {
-    const dispatch = useAppDispatch();
-
-    const limpiarCarrito = () => {
-        Swal.fire({
-            title: "¿Vaciar carrito?",
-            text: "Se eliminarán todos los productos del carrito.",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Sí, vaciar",
-            cancelButtonText: "Cancelar"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                dispatch(limpiar());
-
-                Swal.fire({
-                    icon: "success",
-                    title: "Carrito vacío",
-                    timer: 1200,
-                    showConfirmButton: false
-                });
-            }
-        });
-    };
-
-    return (
-        <div>
-            {/* Aquí va la lista de productos */}
-
-            <button onClick={limpiarCarrito}>
-                Vaciar carrito
-            </button>
-        </div>
-    );
 "use client";
 import styles from "./carrito.module.css";
 import { eliminar, limpiar } from "../../redux/carritoSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { Venta, VentaItem } from "../../types/Venta";
+import Swal from "sweetalert2";
 
 export default function Cart() {
   const carrito = useAppSelector((state) => state.carrito);
@@ -64,6 +27,28 @@ export default function Cart() {
     const venta = buildVenta();
     console.log("Venta preparada:", venta);
     dispatch(limpiar());
+  };
+
+  const limpiarCarrito = () => {
+    Swal.fire({
+      title: "¿Vaciar carrito?",
+      text: "Se eliminarán todos los productos del carrito.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sí, vaciar",
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(limpiar());
+
+        Swal.fire({
+          icon: "success",
+          title: "Carrito vacío",
+          timer: 1200,
+          showConfirmButton: false
+        });
+      }
+    });
   };
 
   if (carrito.length === 0) {
@@ -99,7 +84,7 @@ export default function Cart() {
       </div>
 
       <div className={styles["cart-actions"]}>
-        <button className={styles["cart-clear-btn"]} onClick={() => dispatch(limpiar())}>
+        <button className={styles["cart-clear-btn"]} onClick={limpiarCarrito}>
           Vaciar carrito
         </button>
         <button className={styles["cart-buy-btn"]} onClick={handleComprar}>
