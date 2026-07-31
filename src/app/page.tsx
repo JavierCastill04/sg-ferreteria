@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use client"
 import { Provider } from "react-redux";
 import { store } from "../redux/store";
@@ -14,5 +15,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </Provider>
       </body>
     </html>
+=======
+
+export default function Home() {
+  return (
+    <main className="home-container">
+      <br />
+      <section>
+        Hola mundo
+      </section>
+    </main>
+>>>>>>> 116654d0c41acb8c43618139aeb7550cfd4752c2
   );
 }
