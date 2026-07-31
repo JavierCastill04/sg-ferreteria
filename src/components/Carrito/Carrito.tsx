@@ -3,8 +3,9 @@ import styles from "./carrito.module.css";
 import { eliminar, limpiar } from "../../redux/carritoSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { Venta, VentaItem } from "../../types/Venta";
-import Swal from "sweetalert2";
+import "@/utils/MensajesSwal";
 import usePost from "@/customHooks/usePost";
+import { CompraExitosa, ConfirmarCarritoVacio, ErrorCompra, VaciarCarrito } from "@/utils/MensajesSwal";
 
 export default function Cart() {
   const carrito = useAppSelector((state) => state.carrito);
@@ -29,44 +30,19 @@ export default function Cart() {
     const venta = buildVenta();
     try {
       await sendData(venta);
-
-      Swal.fire({
-        icon: "success",
-        title: "¡Compra realizada!",
-        text: "Tu compra se ha registrado correctamente.",
-        timer: 1500,
-        showConfirmButton: false,
-      });
-
+      CompraExitosa();
       dispatch(limpiar());
     }
     catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "No se pudo realizar la compra.",
-      });
+      ErrorCompra();
     }
   };
 
   const limpiarCarrito = () => {
-    Swal.fire({
-      title: "¿Vaciar carrito?",
-      text: "Se eliminarán todos los productos del carrito.",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Sí, vaciar",
-      cancelButtonText: "Cancelar"
-    }).then((result) => {
+    VaciarCarrito().then((result) => {
       if (result.isConfirmed) {
         dispatch(limpiar());
-
-        Swal.fire({
-          icon: "success",
-          title: "Carrito vacío",
-          timer: 1200,
-          showConfirmButton: false
-        });
+        ConfirmarCarritoVacio();
       }
     });
   };
