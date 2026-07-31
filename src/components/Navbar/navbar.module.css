@@ -3,8 +3,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 12px 24px;
-  background: #371840;
-  border-bottom: 1px solid #5e246e;
+  background: var(--primary-dark);
+  border-bottom: 1px solid var(--primary);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   position: relative;
   z-index: 50;
@@ -15,7 +15,7 @@
   font-size: 18px;
   font-weight: 700;
   margin: 0;
-  color: #ffffff;
+  color: var(--background);
   font-family: Courier Serif;
 
 }
@@ -35,7 +35,7 @@
 
 .spanst {
   font-size: 13px;
-  color: #ffffff;
+  color: var(--background);
   user-select: none;
   font-family: Courier Serif;
 }
@@ -60,7 +60,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #5e246e;
+  background-color: var(--primary);
   border-radius: 22px;
   transition: background-color 0.2s ease;
 }
@@ -72,13 +72,13 @@
   width: 16px;
   left: 3px;
   bottom: 3px;
-  background-color: #ffffff;
+  background-color: var(--background);
   border-radius: 50%;
   transition: transform 0.2s ease;
 }
 
 .switch input:checked + .span {
-  background-color: #be7abf;
+  background-color: var(--primary-light);
 }
 
 .switch input:checked + .span::before {
@@ -97,8 +97,8 @@
   padding: 8px 14px;
   border: none;
   border-radius: 6px;
-  background: #5e246e;
-  color: #ffffff;
+  background: var(--primary);
+  color: var(--background);
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -106,6 +106,6 @@
 }
 
 .cartButton:hover {
-  background: #be7abf;
-  color: #371840;
+  background: var(--primary-light);
+  color: var(--primary-dark);
 }
