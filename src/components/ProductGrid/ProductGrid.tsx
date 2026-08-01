@@ -28,15 +28,15 @@ export default function ProductGrid() {
       );
     }
 
-    if (!Procesando && itemsAnteriores.current) {
-      if (carrito.length === 0) {
-        itemsAnteriores.current = null;
-      } else {
-        setItems(itemsAnteriores.current);
-        itemsAnteriores.current = null;
-      }
+    if (!Procesando && carrito.length === 0) {
+      setItems(products);
+      itemsAnteriores.current = null;
     }
 
+    if (!Procesando && carrito.length > 0 && itemsAnteriores.current) {
+      setItems(itemsAnteriores.current);
+      itemsAnteriores.current = null;
+    }
   }, [Procesando, carrito.length]);
 
   const aumentarCantidad = (id: number) => {
