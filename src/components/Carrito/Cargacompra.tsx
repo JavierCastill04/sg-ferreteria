@@ -4,8 +4,9 @@ import styles from "./cargacompra.module.css";
 
 export default function cargacompra() {
   const procesando = useAppSelector((state) => state.config.prosecsCompra);
+  const optimistic = useAppSelector((state)=>state.config.optimistic);
 
-  if (!procesando) return null;
+  if (!procesando || optimistic) return null;
 
   return (
     <div className={styles.pantalla}>
