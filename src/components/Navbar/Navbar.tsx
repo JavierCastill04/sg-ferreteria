@@ -5,8 +5,10 @@ import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { cambiarOptimistic } from "@/redux/configSlice";
 import styles from "@/components/Navbar/navbar.module.css";
 import { SlBasket } from "react-icons/sl";
+import {SimuladorError} from "../../redux/configSlice";
 
 export default function Navbar() {
+  const simularError = useAppSelector((state) => state.config.simulador);
   const [showCart, setShowCart] = useState(false);
   const dispatch = useAppDispatch();
   const optimistic = useAppSelector((state) => state.config.optimistic);
@@ -24,6 +26,16 @@ export default function Navbar() {
         <h1>Ferreteria Pablito</h1>
       </div>
       <div className={styles.controlador}>
+        <label className={styles.etiqueta}>
+         <span className={styles.spanst}>Simular error API</span>
+          <span className={styles.switch}>
+           <input
+             type="checkbox"
+             checked={simularError}
+             onChange={() => dispatch(SimuladorError())} /> 
+              <span className={styles.span} />
+           </span>
+        </label>
         <label className={styles.etiqueta}>
           <span className={styles.spanst}>Optimistic Updates </span>
           <span className={styles.switch}>

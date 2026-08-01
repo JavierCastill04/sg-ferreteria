@@ -8,19 +8,22 @@ import "@/utils/MensajesSwal";
 import { Product } from "@/types/Product";
 import usePost from "@/customHooks/usePost";
 import { CompraExitosa, ConfirmarCarritoVacio, ErrorCompra, VaciarCarrito } from "@/utils/MensajesSwal";
-import {ProsesandoComrpra} from "../../redux/configSlice"
+import { ProsesandoComrpra } from "../../redux/configSlice";
+
+const API_URL = "https://6a6ad838eb87a96865a8a64a.mockapi.io/ferreteria/v1/ventas";
 
 export default function Cart() {
   const carrito = useAppSelector((state) => state.carrito);
   const dispatch = useAppDispatch();
-  const Procesando = useAppSelector((state)=>state.config.prosecsCompra);
+  const Procesando = useAppSelector((state) => state.config.prosecsCompra);
   const optimistic = useAppSelector((state) => state.config.optimistic);
+  const simularError = useAppSelector((state) => state.config.simulador);
   const [optimisticCarrito, setOptimisticCarrito] = useOptimistic<Product[], Product[]>(
     carrito,
     (_state, nuevoCarrito) => nuevoCarrito
   );
 
-  const { sendData, loading } = usePost("https://6a6ad838eb87a96865a8a64a.mockapi.io/ferreteria/v1/ventas");
+  const { sendData, loading } = usePost(API_URL);
   const total = optimisticCarrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
 
   const buildVenta = (): Venta => {
@@ -35,6 +38,14 @@ export default function Cart() {
     return { productos, total, fecha: new Date().toISOString() };
   };
 
+  // Aqui es donde se hace la configuracion sobre el error del envio real o simulado
+  const enviarVenta = async (venta: Venta) => {
+    if (simularError) {
+      throw new Error("Error: fallo de la API");
+    }
+    return sendData(venta);
+  };
+
   const handleComprar = () => {
     const venta = buildVenta();
     if (optimistic) {
@@ -46,9 +57,8 @@ export default function Cart() {
         CompraExitosa();
 
         try {
-          await sendData(venta);
+          await enviarVenta(venta);
           dispatch(limpiar());
-
         } catch (error) {
           setOptimisticCarrito(carritoAnterior);
           ErrorCompra();
@@ -56,15 +66,13 @@ export default function Cart() {
           dispatch(ProsesandoComrpra(false));
         }
       });
-
     } else {
       const realizarCompra = async () => {
         dispatch(ProsesandoComrpra(true));
         try {
-          await sendData(venta);
+          await enviarVenta(venta);
           dispatch(limpiar());
           CompraExitosa();
-
         } catch (error) {
           ErrorCompra();
         } finally {
@@ -102,10 +110,7 @@ export default function Cart() {
                 Subtotal: ${(item.precio * item.cantidad).toFixed(2)}
               </strong>
             </div>
-            <button
-              className={styles["cart-remove-btn"]}
-              onClick={() => dispatch(eliminar(item.id))}
-            >
+            <button className={styles["cart-remove-btn"]} onClick={() => dispatch(eliminar(item.id))}>
               ✕
             </button>
           </div>
@@ -120,9 +125,9 @@ export default function Cart() {
         <button className={styles["cart-clear-btn"]} onClick={limpiarCarrito}>
           Vaciar carrito
         </button>
-      <button className={styles["cart-buy-btn"]} onClick={handleComprar} disabled={loading || Procesando}>
-        {loading || Procesando ? "Procesando compra" : "Realizar compra"}
-       </button>
+        <button className={styles["cart-buy-btn"]} onClick={handleComprar} disabled={loading || Procesando}>
+          {loading || Procesando ? "Procesando compra" : "Realizar compra"}
+        </button>
       </div>
     </div>
   );
