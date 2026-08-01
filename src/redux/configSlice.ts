@@ -19,7 +19,7 @@ const configSlice = createSlice({
     cambiarOptimistic: (state) => {
       state.optimistic = !state.optimistic;
     },
-    ProsesandoComrpra: (state, action: PayloadAction<boolean>) => {
+    ProcesandoCompra: (state, action: PayloadAction<boolean>) => {
       state.prosecsCompra = action.payload;
     },
     SimuladorError: (state) => {
@@ -28,5 +28,5 @@ const configSlice = createSlice({
   },
 });
 
-export const { cambiarOptimistic, ProsesandoComrpra, SimuladorError } = configSlice.actions;
+export const { cambiarOptimistic, ProcesandoCompra, SimuladorError } = configSlice.actions;
 export default configSlice.reducer;

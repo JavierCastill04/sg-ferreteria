@@ -27,7 +27,7 @@ export default function Navbar() {
       </div>
       <div className={styles.controlador}>
         <label className={styles.etiqueta}>
-         <span className={styles.spanst}>Simular error API</span>
+         <span className={styles.spanst}>Desconectar API</span>
           <span className={styles.switch}>
            <input
              type="checkbox"
