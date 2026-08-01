@@ -3,6 +3,7 @@
 import { Provider } from "react-redux";
 import store from "../redux/store";
 import Navbar from "@/components/Navbar/Navbar";
+import Cargarcompra from "../components/Carrito/Cargacompra"
 
 export default function RootLayout({
   children,
@@ -14,6 +15,7 @@ export default function RootLayout({
       <body>
         <Provider store={store}>
           <Navbar/>
+          <Cargarcompra></Cargarcompra>
           {children}
         </Provider>
       </body>

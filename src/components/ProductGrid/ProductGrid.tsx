@@ -1,44 +1,43 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { products } from "@/data/products";
 import { Product } from "@/types/Product";
 import styles from "./grid.module.css";
 import { FaCartPlus } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { agregar } from "@/redux/carritoSlice";
-
-import Swal from "sweetalert2";
 import { AgregarAlCarrito } from "@/utils/MensajesSwal";
 
 export default function ProductGrid() {
   const dispatch = useAppDispatch();
   const carrito = useAppSelector((state) => state.carrito);
   const [items, setItems] = useState<Product[]>(products);
+  const itemsAnteriores = useRef<Product[] | null>(null);
+  const Procesando = useAppSelector((state) => state.config.prosecsCompra);
+  const optimistic = useAppSelector((state) => state.config.optimistic);
 
   useEffect(() => {
-    if (carrito.length === 0) {
-      setItems(items.map(producto => ({
-        ...producto,
-        cantidad: 1
-      })))
+    if (optimistic && Procesando) {
+      itemsAnteriores.current = items;
+      setItems(prevItems =>
+        prevItems.map(producto => ({
+          ...producto,
+          cantidad: 1
+        }))
+      );
     }
-  }, [carrito.length]);
 
-  useEffect(() => {
-    setItems(prevItems =>
-      prevItems.map(producto => {
-        const productoEnCarrito = carrito.find(item => item.id === producto.id);
-        if (!productoEnCarrito) {
-          return {
-            ...producto,
-            cantidad: 1
-          };
-        }
-        return producto;
-      })
-    );
-  }, [carrito]);
+    if (!Procesando && itemsAnteriores.current) {
+      if (carrito.length === 0) {
+        itemsAnteriores.current = null;
+      } else {
+        setItems(itemsAnteriores.current);
+        itemsAnteriores.current = null;
+      }
+    }
+
+  }, [Procesando, carrito.length]);
 
   const aumentarCantidad = (id: number) => {
     setItems(items.map(product =>
